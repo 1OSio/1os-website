@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>1OS | The Cross-Chain Operating System</title>
+    <!-- SEO Meta Tags-->
+    <meta name="description" content="1OS - The Cross-Chain Operating System">
+    <meta name="keywords" content="1OS, 1OS token, 1OS coin, blockchain operating system, blockchain, blockchain network, blockchain os, cross-chain, cross-chain operating system, cross-chain os, decentralized operating system, decentralized os, operating system, web3, web 3.0, bitcoin, ethereum, 1OS coin, 1OScoin, os, crypto, cryptocurrency, virtual currency, crypto coin, crypto token, token, decentralized os, decentralized operating system">
+    <meta name="author" content="1OS Team">
+    <!-- Viewport-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon and Touch Icons-->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon.ico">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" color="#5bbad5" href="safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#766df4">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Page loading styles-->
+    <style>
+      .page-loading {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: all .4s .2s ease-in-out;
+        transition: all .4s .2s ease-in-out;
+        background-color: #373737;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 9999;
+      }
+      .page-loading.active {
+        opacity: 1;
+        visibility: visible;
+      }
+      .page-loading-inner {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+        opacity: 0;
+      }
+      .page-loading.active > .page-loading-inner {
+        opacity: 1;
+      }
+      .page-loading-inner > span {
+        display: block;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
+        font-weight: normal;
+        color: #737491;
+      }
+      .page-spinner {
+        display: inline-block;
+        width: 2.75rem;
+        height: 2.75rem;
+        margin-bottom: .75rem;
+        vertical-align: text-bottom;
+        border: .15em solid #766df4;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner .75s linear infinite;
+        animation: spinner .75s linear infinite;
+      }
+      @-webkit-keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes spinner {
+        100% {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+      
+    </style>
+    <!-- Page loading scripts-->
+    <script>
+      (function () {
+        window.onload = function () {
+          const preloaderContainer = document.querySelector('.page-loading-container')
+          const preloader = document.querySelector('.page-loading')
+          preloader.classList.remove('active')
+          preloaderContainer.classList.add('fade-out')
+          setTimeout(() => {
+            preloaderContainer.classList.add('d-none')
+            document.body.classList.remove('fixed')
+          }, 1000)
+        };
+      })();
+      
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Baumans&family=Bungee+Shade&display=swap" rel="stylesheet">
+    <!-- Vendor Styles-->
+    <link rel="stylesheet" media="screen" href="vendor/simplebar/dist/simplebar.min.css"/>
+    <!-- Main Theme Styles + Bootstrap-->
+    <link rel="stylesheet" media="screen" href="css/theme.min.css">
+    <!-- Custom Styles-->
+    <link rel="stylesheet" media="screen" href="./assets/css/styles.css">
+
+    <script type="module" src="./assets/js/index.js"></script>
+  </head>
+  <!-- Body-->
+  <body class="fixed">
+    <!-- Page loading spinner-->
+    <div class="page-loading-container">
+        <svg viewBox="0 0 50 50" class="spinner page-loading active">
+          <circle class="ring" cx="25" cy="25" r="22.5"></circle>
+          <circle class="line" cx="25" cy="25" r="22.5"></circle>
+        </svg>
+      </div>
+    <main class="page-wrapper">
+      <!-- Sign In Modal-->
+      <div class="modal fade" id="modal-signin" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content border-0">
+            <div class="view show" id="modal-signin-view">
+              <div class="modal-header border-0 bg-dark px-4">
+                <h4 class="modal-title text-light">Sign in</h4>
+                <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="btn-close "></button>
+              </div>
+              <div class="modal-body px-4">
+                <p class="fs-ms text-muted">Sign in to your account using email and password provided during registration.</p>
+                <form class="needs-validation" novalidate>
+                  <div class="mb-3">
+                    <div class="input-group"><i class="ai-mail position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                      <input class="form-control rounded" type="email" placeholder="Email" required>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="input-group"><i class="ai-lock position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                      <div class="password-toggle w-100">
+                        <input class="form-control" type="password" placeholder="Password" required>
+                        <label class="password-toggle-btn" aria-label="Show/hide password">
+                          <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center mb-3 mb-3">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="keep-signed">
+                      <label class="form-check-label fs-sm" for="keep-signed">Keep me signed in</label>
+                    </div><a class="nav-link-style fs-ms" href="password-recovery.html">Forgot password?</a>
+                  </div>
+                  <button class="btn btn-primary d-block w-100" type="submit">Sign in</button>
+                  <p class="fs-sm pt-3 mb-0">Don't have an account? <a href='#' class='fw-medium' data-view='#modal-signup-view'>Sign up</a></p>
+                </form>
+              </div>
+            </div>
+            <div class="view" id="modal-signup-view">
+              <div class="modal-header border-0 bg-dark px-4">
+                <h4 class="modal-title text-light">Sign up</h4>
+                <button class="btn-close btn-close-white" type="button" data-bs-dismiss="modal" aria-label="btn-close"></button>
+              </div>
+              <div class="modal-body px-4">
+                <p class="fs-ms text-muted">Registration takes less than a minute but gives you full control over your orders.</p>
+                <form class="needs-validation" novalidate>
+                  <div class="mb-3">
+                    <input class="form-control" type="text" placeholder="Full name" required>
+                  </div>
+                  <div class="mb-3">
+                    <input class="form-control" type="text" placeholder="Email" required>
+                  </div>
+                  <div class="mb-3 password-toggle">
+                    <input class="form-control" type="password" placeholder="Password" required>
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                  <div class="mb-3 password-toggle">
+                    <input class="form-control" type="password" placeholder="Confirm password" required>
+                    <label class="password-toggle-btn" aria-label="Show/hide password">
+                      <input class="password-toggle-check" type="checkbox"><span class="password-toggle-indicator"></span>
+                    </label>
+                  </div>
+                  <button class="btn btn-primary d-block w-100" type="submit">Sign up</button>
+                  <p class="fs-sm pt-3 mb-0">Already have an account? <a href='#' class='fw-medium' data-view='#modal-signin-view'>Sign in</a></p>
+                </form>
+              </div>
+            </div>
+            <div class="modal-body text-center px-4 pt-2 pb-4">
+              <hr class="my-0">
+              <p class="fs-sm fw-medium text-heading pt-4">Or sign in with</p><a class="btn-social bs-facebook bs-lg mx-1 mb-2" href="#"><i class="ai-facebook"></i></a><a class="btn-social bs-twitter bs-lg mx-1 mb-2" href="#"><i class="ai-twitter"></i></a><a class="btn-social bs-instagram bs-lg mx-1 mb-2" href="#"><i class="ai-instagram"></i></a><a class="btn-social bs-google bs-lg mx-1 mb-2" href="#"><i class="ai-google"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navbar Floating light for Index page only-->
+      <!-- Remove "navbar-sticky" class to make navigation bar scrollable with the page.-->
+      <div class="os-news-feed">
+        <div class="os-news-feed__container container">
+          <div class="os-news-feed__inner"></div>
+        </div>
+      </div>
+      <header class="header navbar navbar-expand-lg navbar-light navbar-floating navbar-sticky px-4" data-fixed-element>
+        <div class="container px-lg-4 px-xl-0">
+          <button class="navbar-toggler ms-n2 me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#primaryMenu"><span class="navbar-toggler-icon"></span></button>
+          <a class="navbar-brand flex-shrink-0 order-lg-1 mx-auto11 ms-lg-0 pe-lg-2 me-lg-4" href="https://1os.io">
+            <img class="navbar-floating-logo d-none d-lg-block" src="img/logo/1OS-logo-blu.svg" alt="1OS" width="35">
+            <img class="navbar-stuck-logo" src="img/logo/1OS-logo-blu.svg" alt="1OS" width="35">
+            <span class="navbar-logo-lg-suffix d-none d-lg-block">OS</span>
+            <img class="d-lg-none" src="img/logo/1OS-logo-blu.svg" alt="1OS" width="15">
+            <span class="navbar-logo-suffix d-lg-none">OS</span>
+          </a>
+          <div class="d-flex align-items-center order-lg-3 ms-lg-auto pt-2">
+            <h6 class="fw-normal">Countdown until BETA</h6>
+            <div class="countdown h5 justify-content-end mb-0 pt-1" data-countdown="06/30/2021 02:00:00 PM">
+              <div class="countdown-days">
+                <span class="countdown-value">0</span>
+                <span class="countdown-label">Days</span>
+              </div>
+              <div class="countdown-hours">
+                <span class="countdown-value">0</span>
+                <span class="countdown-label">Hours</span>
+              </div>
+              <div class="countdown-minutes">
+                <span class="countdown-value">0</span>
+                <span class="countdown-label">Mins</span>
+              </div>
+              <div class="countdown-seconds">
+                <span class="countdown-value">0</span>
+                <span class="countdown-label">Secs</span>
+              </div>
+            </div>
+            <!-- <a class="btn btn-primary" href="https://beta.1os.io" target="_blank" rel="noopener">Launch 1OS BETA</a> -->
+          </div>
+          <div class="offcanvas offcanvas-collapse order-lg-2" id="primaryMenu">
+            <div class="offcanvas-cap navbar-shadow">
+              <h5 class="mt-1 mb-0">Menu</h5>
+              <button class="btn-close lead" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <!-- Menu-->
+              <ul class="navbar-nav mx-5">
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Project <i class="ai-chevron-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <!-- <li><a class="dropdown-item" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-map"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Roadmap</span><small class="d-block text-muted">1OS milestones</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li> -->
+                    <li><a class="dropdown-item" target="_blank" href="https://bscscan.com/token/0xd848fbce6b40fbf61910d0d998db08fd43d0f165">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-database"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Token Explorer</span><small class="d-block text-muted">See latest transactions</small></div>
+                        </div></a></li>
+                    <li><a class="dropdown-item" href="#team" data-scroll="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-users"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Team</span><small class="d-block text-muted">See 1OS Team profiles</small></div>
+                        </div></a></li>
+                    <!-- <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-pie-chart"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Token Distribution</span><small class="d-block text-muted">1OS breakdown</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-file"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Whitepaper</span><small class="d-block text-muted">Discover 1OS's blueprint</small></div>
+                        </div></a></li> -->
+                  </ul>
+                </li>
+                <!-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">About <i class="ai-chevron-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" target="_blank" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-info"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">What is 1OS?</span><small class="d-block text-muted">1OS explained</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-globe"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Objective</span><small class="d-block text-muted">1OS's mission</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted">
+                            <span>
+                              <svg width="26" height="26" viewBox="0 0 332 717" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                                  <g transform="matrix(1,0,0,1,-230.698,-97.765)">
+                                      <path d="M562.333,97.765L562.333,667.232L384.435,814.125L384.435,137.488L452.497,202.206L562.333,97.765Z" style="fill:rgb(102,97,255);"/>
+                                  </g>
+                                  <g transform="matrix(1.21211,0,0,1.21211,-710.433,-215.501)">
+                                      <path d="M859.407,177.865L748.943,319.183L586.115,319.183L713.058,177.865L859.407,177.865Z" style="fill:rgb(102,97,255);"/>
+                                  </g>
+                              </svg>
+                            </span>
+                          </div>
+                          <div class="ps-3"><span class="d-block text-heading">1OS Token</span><small class="d-block text-muted">Learn about 1OS token</small></div>
+                        </div></a></li>
+                  </ul>
+                </li> -->
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">News & Community <i class="ai-chevron-down"></i></a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" target="_blank" href="https://1os.medium.com/">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted">
+                            <svg class="social-icon" width="20" height="20" viewBox="0 0 256 146" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+                              <g>
+                                  <path d="M72.2009141,1.42108547e-14 C112.076502,1.42108547e-14 144.399375,32.5485469 144.399375,72.6964154 C144.399375,112.844284 112.074049,145.390378 72.2009141,145.390378 C32.327779,145.390378 0,112.844284 0,72.6964154 C0,32.5485469 32.325326,1.42108547e-14 72.2009141,1.42108547e-14 Z M187.500628,4.25836743 C207.438422,4.25836743 223.601085,34.8960455 223.601085,72.6964154 L223.603538,72.6964154 C223.603538,110.486973 207.440875,141.134463 187.503081,141.134463 C167.565287,141.134463 151.402624,110.486973 151.402624,72.6964154 C151.402624,34.9058574 167.562834,4.25836743 187.500628,4.25836743 Z M243.303393,11.3867175 C250.314,11.3867175 256,38.835526 256,72.6964154 C256,106.547493 250.316453,134.006113 243.303393,134.006113 C236.290333,134.006113 230.609239,106.554852 230.609239,72.6964154 C230.609239,38.837979 236.292786,11.3867175 243.303393,11.3867175 Z" fill="#000000"></path>
+                              </g>
+                            </svg>
+                          </div>
+                          <div class="ps-3"><span class="d-block text-heading">Medium</span><small class="d-block text-muted">1OS Medium blog</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="https://twitter.com/Official_1OS">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-twitter"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Twitter</span><small class="d-block text-muted">Official 1OS Twitter account</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="https://t.me/Official_1OS">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-telegram"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Telegram</span><small class="d-block text-muted">Official 1OS Telegram community</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                      <a class="dropdown-item" target="_blank" href="https://discord.gg/fH9aTkkU">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted">
+                              <svg class="social-icon" height="20" width="20" xmlns="http://www.w3.org/2000/svg" id="Layer_1" viewBox="0 0 245 240"><style>.st0{fill:#7289DA;}</style><path class="st0" d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/><path class="st0" d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/></svg>
+                          </div>
+                          <div class="ps-3"><span class="d-block text-heading">Discord</span><small class="d-block text-muted">Official 1OS Discord server</small></div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Help <i class="ai-chevron-down md-only"></i></a>
+                  <ul class="dropdown-menu">
+                    <!-- <li><a class="dropdown-item" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-file-text"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Documentation</span><small class="d-block text-muted">Getting started</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-help-circle"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Help Center<span class="badge bg-danger ms-2">20+</span></span><small class="d-block text-muted">Common questions</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li> -->
+                    <li><a class="dropdown-item" target="_blank" href="https://github.com/1OSio">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-github"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">GitHub<span class="badge bg-success ms-2">BETA v1.0.0</span></span><small class="d-block text-muted">Regular code updates</small></div>
+                        </div></a></li>
+                    <li class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" target="_blank" href="mailto:support@1os.io">
+                        <div class="d-flex align-items-center">
+                          <div class="fs-xl text-muted"><i class="ai-life-buoy"></i></div>
+                          <div class="ps-3"><span class="d-block text-heading">Support</span><small class="d-block text-muted">support@1os.io</small></div>
+                        </div></a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Page content-->
+      <!-- Intro-->
+      <section class="container d-flex align-items-center position-relative bg-size-cover bg-position-center min-vh-100 pt-6 pb-lg-5 px-6">
+        <div class="py-5 pb-5">
+          <div class="row align-items-center py-3">
+            <div class="col-xl-6 col-lg-7">
+              <img class="os-kitty" src="./assets/img/visor-kitty.svg">
+              <div id="circle-orbit-container">
+                <img class="os-outline-logo" src="./img/logo/1OS-outline-00.png">
+                <!-- Circles closest to the central point -->
+                <div id="inner-orbit">
+                    <img class="neo-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/neo-logo.svg" alt="NEO Logo" loading="lazy">
+                    <img class="ada-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/ada-logo.svg" alt="ADA Logo" loading="lazy">
+                    <img class="bnb-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/bnb-logo.svg" alt="BNB Logo" loading="lazy">
+                    <svg class="dot-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1871.3 2503" style="enable-background:new 0 0 1871.3 2503;" xml:space="preserve">
+                      <style type="text/css">
+                        .st0{fill:#1E1E1E;}
+                        .st1{fill:#E6007A;}
+                      </style>
+                      <title>polkadot</title>
+                      <path class="st0" d="M948.2,0C425.4,2.1,2.1,425.4,0,948.2c0,104.7,16.9,208.7,50,308c24.7,67.6,98,104,166.8,83.1  c66.5-25.5,101.8-98.2,80.6-166.2c-28.1-77.4-40.6-159.5-36.9-241.7c11.4-377.6,326.7-674.5,704.3-663.1s674.5,326.7,663.1,704.3  c-10.7,353.5-289.1,640.6-642.2,662.1c0,0-133.1,8.1-199.3,16.2c-24.4,3.5-48.6,8.3-72.5,14.4c-3.4,3.5-8.9,3.5-12.4,0.1  c0,0-0.1-0.1-0.1-0.1c-2.4-3.1-2.4-7.5,0-10.6l20.6-112.4L847,980.1c15-70.2-29.7-139.3-99.9-154.3c-70.2-15-139.3,29.7-154.3,99.9  c0,0-297.3,1376.1-297.3,1388.6c-17,66.9,23.4,134.9,90.3,151.9c0.7,0.2,1.5,0.4,2.2,0.5h6.9c66.8,17.3,135-22.9,152.2-89.7  c0.3-1.1,0.6-2.2,0.8-3.4c-0.2-2.1-0.2-4.2,0-6.2c3.7-16.2,41.2-199.3,41.2-199.3c28.4-138.2,139.8-244.1,279.2-265.5  c28.7-4.4,149.3-12.5,149.3-12.5c520.8-51.9,900.9-516.2,848.9-1037C1819.1,378.1,1425.6,12.4,948.2,0z"></path>
+                      <path class="st1" d="M1005.7,2186.3c-85.5-17.8-169.1,37.1-186.9,122.5c-0.2,0.8-0.3,1.6-0.5,2.4c-18.5,84.9,35.3,168.8,120.3,187.3  c0.1,0,0.2,0,0.3,0.1h4.4c83.2,20.1,166.9-31.1,186.9-114.2c0.2-0.6,0.3-1.3,0.5-1.9v-8.7C1145.4,2288,1090.6,2205.7,1005.7,2186.3z  "></path>
+                    </svg>
+                  <!-- <div class="inner-orbit-circles"></div> -->
+                </div>
+              
+                <!-- Circles second closest to the central point -->
+                <div id="middle-orbit">
+                    <style type="text/css">
+                      .st0{fill:#0033AD;}
+                    </style>
+                    <g id="Layer_2_1_">
+                      <g id="Layer_1-2">
+                        <path class="st0" d="M102.8,172c-0.8,13.9,9.9,25.8,23.8,26.6c0.5,0,1,0,1.5,0c14,0,25.3-11.3,25.2-25.3c0-14-11.3-25.3-25.3-25.2    C114.6,148.1,103.5,158.6,102.8,172z"></path>
+                        <path class="st0" d="M8.6,165.5c-4.5-0.3-8.4,3.2-8.6,7.7s3.2,8.4,7.7,8.6c4.5,0.3,8.3-3.2,8.6-7.7    C16.6,169.6,13.1,165.8,8.6,165.5C8.6,165.5,8.6,165.5,8.6,165.5z"></path>
+                        <path class="st0" d="M101.2,25.4c4-2,5.6-7,3.6-11c-2-4-7-5.6-11-3.6c-4,2-5.6,6.9-3.6,10.9C92.2,25.8,97.1,27.5,101.2,25.4    C101.1,25.4,101.2,25.4,101.2,25.4z"></path>
+                        <path class="st0" d="M126.8,70.1c6.2-3.1,8.7-10.7,5.6-16.9s-10.7-8.7-16.9-5.6c-6.2,3.1-8.7,10.7-5.6,16.9    C113,70.7,120.6,73.2,126.8,70.1z"></path>
+                        <path class="st0" d="M40.6,100.8c4.8,3.1,11.2,1.8,14.4-3c3.1-4.8,1.8-11.2-3-14.4c-4.8-3.1-11.2-1.8-14.4,3c0,0,0,0,0,0    C34.4,91.2,35.8,97.7,40.6,100.8z"></path>
+                        <path class="st0" d="M55.9,161c-7-0.4-12.9,4.9-13.3,11.9s4.9,12.9,11.9,13.3c7,0.4,12.9-4.9,13.3-11.9c0,0,0,0,0,0    C68.2,167.4,62.9,161.4,55.9,161z"></path>
+                        <path class="st0" d="M42,245.7c-5.1,2.6-7.2,8.8-4.6,14c2.6,5.1,8.8,7.2,14,4.6c5.1-2.6,7.2-8.8,4.6-14c0,0,0,0,0,0    C53.4,245.2,47.1,243.1,42,245.7C42,245.7,42,245.7,42,245.7z"></path>
+                        <path class="st0" d="M91,134.9c6.9,4.5,16.1,2.6,20.5-4.3c4.5-6.9,2.6-16.1-4.3-20.5c-6.9-4.5-16.1-2.6-20.5,4.3    C82.2,121.2,84.1,130.4,91,134.9C91,134.9,91,134.9,91,134.9z"></path>
+                        <path class="st0" d="M246.5,69.1c5.8,3.8,13.7,2.2,17.5-3.6s2.2-13.7-3.6-17.5c-5.8-3.8-13.7-2.2-17.5,3.6c0,0,0,0,0,0    C239,57.5,240.6,65.3,246.5,69.1C246.5,69.1,246.5,69.1,246.5,69.1z"></path>
+                        <path class="st0" d="M272.3,24.6c3.8,2.5,8.8,1.4,11.3-2.4s1.4-8.8-2.4-11.3c-3.8-2.5-8.8-1.4-11.3,2.3    C267.5,17,268.6,22.1,272.3,24.6C272.3,24.6,272.3,24.6,272.3,24.6z"></path>
+                        <path class="st0" d="M248.4,147.9c-13.9-0.8-25.9,9.9-26.6,23.8c-0.8,13.9,9.9,25.9,23.8,26.6c0.5,0,1,0,1.4,0    c13.9,0,25.2-11.3,25.2-25.3C272.3,159.7,261.8,148.6,248.4,147.9L248.4,147.9z"></path>
+                        <path class="st0" d="M135.1,133.1c4.3,8.5,13,13.9,22.6,13.9c13.9,0,25.2-11.3,25.2-25.3c0-3.9-0.9-7.8-2.7-11.4    c-6.3-12.5-21.5-17.5-33.9-11.2C133.8,105.5,128.8,120.7,135.1,133.1L135.1,133.1z"></path>
+                        <path class="st0" d="M333,100.8c5.1-2.6,7.1-8.9,4.5-14c-2.6-5.1-8.9-7.1-14-4.5c-5.1,2.6-7.1,8.8-4.6,13.9    C321.6,101.3,327.8,103.4,333,100.8C333,100.8,333,100.8,333,100.8z"></path>
+                        <path class="st0" d="M269,108.8c-7.3,3.7-10.3,12.6-6.6,19.9c3.7,7.3,12.6,10.3,19.9,6.6c7.3-3.7,10.3-12.6,6.6-19.9    C285.2,108.1,276.3,105.2,269,108.8z"></path>
+                        <path class="st0" d="M186.5,20.8c5.7,0.3,10.6-4.1,11-9.8s-4.1-10.6-9.8-11c-5.7-0.3-10.6,4-11,9.7    C176.4,15.5,180.8,20.4,186.5,20.8C186.5,20.8,186.5,20.8,186.5,20.8z"></path>
+                        <path class="st0" d="M186.4,86.1c8.2,0.5,15.2-5.8,15.6-14c0.5-8.2-5.8-15.2-14-15.6c-8.2-0.5-15.2,5.8-15.6,14    C172,78.7,178.2,85.7,186.4,86.1C186.4,86.1,186.4,86.1,186.4,86.1z"></path>
+                        <path class="st0" d="M106,237.7c7.3-3.7,10.3-12.6,6.6-19.9c-3.7-7.3-12.6-10.3-19.9-6.6c-7.3,3.7-10.3,12.6-6.6,19.9    C89.8,238.4,98.7,241.4,106,237.7z"></path>
+                        <path class="st0" d="M196,107.8c-7.6,11.7-4.4,27.3,7.3,34.9c11.7,7.6,27.3,4.4,34.9-7.3c7.6-11.7,4.4-27.3-7.3-34.9    c-4.1-2.7-8.9-4.1-13.8-4.1C208.6,96.4,200.7,100.7,196,107.8z"></path>
+                        <path class="st0" d="M239.9,213.4c-6.3-12.5-21.5-17.5-33.9-11.2c-12.5,6.3-17.5,21.5-11.2,33.9c6.3,12.5,21.5,17.5,33.9,11.2    c0,0,0,0,0,0c12.4-6.2,17.5-21.2,11.3-33.7C240,213.5,240,213.5,239.9,213.4z"></path>
+                        <path class="st0" d="M284,211.6c-6.9-4.5-16.1-2.6-20.5,4.3c-4.5,6.9-2.6,16.1,4.3,20.5c6.9,4.5,16.1,2.6,20.5-4.3    C292.8,225.3,290.9,216.1,284,211.6C284,211.6,284,211.6,284,211.6z"></path>
+                        <path class="st0" d="M332.4,173.7c0.4-7-4.9-12.9-11.9-13.3c-7-0.4-12.9,4.9-13.3,11.9c-0.4,7,4.9,12.9,11.9,13.3c0,0,0,0,0,0    C326,186,332,180.6,332.4,173.7z"></path>
+                        <path class="st0" d="M367.3,164.7c-4.5-0.3-8.4,3.2-8.6,7.7s3.2,8.4,7.7,8.6c4.5,0.3,8.3-3.2,8.6-7.7    C375.2,168.8,371.8,165,367.3,164.7z"></path>
+                        <path class="st0" d="M334.4,245.7c-4.8-3.1-11.2-1.8-14.4,3c-3.1,4.8-1.8,11.2,3,14.4c4.8,3.1,11.2,1.8,14.4-3    C340.6,255.3,339.2,248.8,334.4,245.7C334.4,245.7,334.4,245.7,334.4,245.7z"></path>
+                        <path class="st0" d="M102.6,321.9c-3.8-2.5-8.8-1.4-11.3,2.3c-2.5,3.8-1.4,8.8,2.3,11.3c3.8,2.5,8.8,1.4,11.3-2.3c0,0,0,0,0,0    C107.5,329.5,106.4,324.4,102.6,321.9z"></path>
+                        <path class="st0" d="M273.8,321.1c-4,2-5.6,7-3.6,11c2,4,7,5.6,11,3.6c4-2,5.6-6.9,3.6-10.9C282.8,320.7,277.9,319,273.8,321.1    C273.9,321.1,273.8,321.1,273.8,321.1z"></path>
+                        <path class="st0" d="M179,238.7c7.6-11.7,4.4-27.3-7.3-35c-11.7-7.6-27.3-4.4-35,7.3s-4.4,27.3,7.3,35c4.1,2.7,8.9,4.1,13.8,4.1    C166.4,250.2,174.3,245.9,179,238.7z"></path>
+                        <path class="st0" d="M128.5,277.4c-5.8-3.8-13.7-2.2-17.5,3.6c-3.8,5.8-2.2,13.7,3.6,17.5s13.7,2.2,17.5-3.6c0,0,0,0,0,0    C136,289.1,134.4,281.2,128.5,277.4z"></path>
+                        <path class="st0" d="M187.4,325.7c-5.7-0.3-10.6,4.1-11,9.8s4.1,10.6,9.8,11c5.7,0.3,10.6-4,11-9.7    C197.5,331,193.1,326.1,187.4,325.7C187.4,325.7,187.4,325.7,187.4,325.7z"></path>
+                        <path class="st0" d="M187.5,260.4c-8.2-0.5-15.2,5.8-15.6,14c-0.5,8.2,5.8,15.2,14,15.6c8.2,0.4,15.2-5.8,15.6-14    C202,267.9,195.7,260.8,187.5,260.4C187.5,260.4,187.5,260.4,187.5,260.4z"></path>
+                        <path class="st0" d="M248.2,276.4c-6.2,3.2-8.7,10.8-5.5,17c3.2,6.2,10.8,8.7,17,5.5c6.2-3.1,8.7-10.7,5.6-16.9    C262.1,275.8,254.5,273.2,248.2,276.4C248.2,276.4,248.2,276.4,248.2,276.4z"></path>
+                      </g>
+                    </g>
+                  </svg>
+                  <!-- <div class="middle-orbit-circles"></div> -->
+                </div>
+              
+                <!-- Circles furthest away to the central point -->
+                <div id="outer-orbit">
+                  <img class="eth-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/eth-v2-logo.svg" alt="ETH diamond (purple)" loading="lazy">
+                  <img class="btc-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/btc-logo.svg" alt="Bitcoin Logo" loading="lazy">
+                  <img class="tron-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/tron-logo.svg" alt="TRON Logo" loading="lazy">
+                  <img class="eos-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/eos-logo.svg" alt="EOS Logo" loading="lazy">
+                  <!-- <div class="outer-orbit-circles"></div> -->
+                </div>
+
+                <!-- Orbit rotator -->
+                <!-- <div id="orbit-rotator"></div> -->
+              
+              </div>
+              <div class="project-details">
+                <div class="row">
+                  <div class="col-sm-6 d-iflex"><span class="lead">Powered by </span><span class="dot-logo"></span></div>
+                  <div class="col-sm-6 d-iflex"><span class="lead">Built on </span><span class="bsc-logo"></span></div>
+                </div>
+              </div>
+              <!-- <div class="parallax ms-lg-n5" style="max-width: 920px;">
+                <div class="parallax-layer position-relative" data-depth="0.1"><img src="img/demo/presentation/intro/layer01.png" alt="Layer"></div>
+                <div class="parallax-layer" style="z-index: 2;" data-depth="0.3"><img src="img/demo/presentation/intro/layer02.png" alt="Layer"></div>
+                <div class="parallax-layer" data-depth="0.2"><img src="img/demo/presentation/intro/layer03.png" alt="Layer"></div>
+                <div class="parallax-layer" style="z-index: 3;" data-depth="0.1"><img src="img/demo/presentation/intro/layer04.png" alt="Layer"></div>
+                <div class="parallax-layer" data-depth="0.15"><img src="img/demo/presentation/intro/layer05.png" alt="Layer"></div>
+                <div class="parallax-layer" style="z-index: 4;" data-depth="0.25"><img src="img/demo/presentation/intro/layer06.png" alt="Layer"></div>
+                <div class="parallax-layer" data-depth="0.3"><img src="img/demo/presentation/intro/layer07.png" alt="Layer"></div>
+                <div class="parallax-layer" data-depth="0.4"><img src="img/demo/presentation/intro/layer08.png" alt="Layer"></div>
+                <div class="parallax-layer" data-depth="0.35"><img src="img/demo/presentation/intro/layer09.png" alt="Layer"></div>
+              </div> -->
+            </div>
+            <div class="col-xl-6 col-lg-5 d-flex z-1">
+              <div class="pt-2 mx-auto mb-5 mb-lg-0">
+                <h1 class="display-1 text-light text-glow-none pb-2"><span class="no-wrap">The Cross-<br></span><span class="no-wrap">Chain OS</span></h1>
+                <p class="h4 fw-normal line-height-base">1OS is an Interoperable Cross-Chain, Operating System, powered by Polkadot. Connecting the world to decentralized apps and protocols from DeFi, NFTs, Gaming and more, across multiple Web 3.0 ecosystems, all accessed via one secure operating system.</p><a class="d-inline-flex align-items-center text-decoration-none pt-2 mt-4 mb-5" href="#demos" data-scroll><span class="btn btn-icon rounded-circle border-light flex-shrink-0 px-3"><i class="ai-arrow-down h4 text-light my-1"></i></span><span class="ms-3 text-light fw-medium">Learn more</span></a>
+                <hr class="hr-light mt-0 mb-5">
+                <div class="row">
+                  <div class="col-sm-4 mb-4 mb-sm-0">
+                    <div class="h1 text-light mb-1">8</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-2">Blockchain Ecosystems Supported</div><span class="badge rounded-pill bg-success">More pending</span>
+                  </div>
+                  <div class="col-sm-4 mb-4 mb-sm-0">
+                    <div class="h1 text-light mb-1">200+</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-1">D'Apps Supported</div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="h1 text-light mb-1">100+</div>
+                    <div class="h5 text-light fw-normal opacity-70 mb-1">Users</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Interface-->
+      <section class="bg-secondary" id="demos">
+        <div class="container py-5">
+          <div class="row text-center">
+            <h2 class="h1 mt-5 mb-4">A <span class='bg-faded-primary rounded text-primary px-3 py-2'>Cross-Chain</span> Operating System</h2>
+            <p class="text-muted">1OS is a fully comprehensive operating system, which allows users to access their favorite Web3 protocols and D'Apps, across several blockchain networks - all from one interface. This helps resolve the issues caused by a currently very fragmented Web3 infrastructure, giving users a highly focused, engaging and interactive experience.</p>
+            <img class="d-block mt--2 img-responsive" src="./assets/img/1os-highlights.png" alt="1OS Highlights">
+          </div>
+          <div class="text-center my-6 pt-3 pt-lg-4">
+            <h2 class="h1 mb-4">Connect to <span class='bg-faded-primary rounded text-primary px-3 py-2'>Web3</span> ecosystems</h2>
+            <p class="text-muted">Switch between any 1OS supported Web3 blockchain ecosystem below, and then click on the flashing hotspots to learn more.</p>
+          </div>
+          <div class="row">
+            <!-- Color radio buttons -->
+            <div class="text-center">
+              <div class="os-network-switcher d-inline-flex rounded py-2 px-4 mb-4">
+                  
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline">
+                  <input class="form-check-input" type="radio" name="color" id="c-dot" value="dot" checked>
+                  <label class="form-option-label rounded" for="c-dot" data-bs-toggle="radioTab" data-bs-target="#dot" data-bs-parent="#hotspots-container-2">
+                    <svg class="dot-icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 1871.3 2503" style="enable-background:new 0 0 1871.3 2503;" xml:space="preserve">
+                      <style type="text/css">
+                        .st0{fill:#1E1E1E;}
+                        .st1{fill:#E6007A;}
+                      </style>
+                      <title>polkadot</title>
+                      <path class="st0" d="M948.2,0C425.4,2.1,2.1,425.4,0,948.2c0,104.7,16.9,208.7,50,308c24.7,67.6,98,104,166.8,83.1  c66.5-25.5,101.8-98.2,80.6-166.2c-28.1-77.4-40.6-159.5-36.9-241.7c11.4-377.6,326.7-674.5,704.3-663.1s674.5,326.7,663.1,704.3  c-10.7,353.5-289.1,640.6-642.2,662.1c0,0-133.1,8.1-199.3,16.2c-24.4,3.5-48.6,8.3-72.5,14.4c-3.4,3.5-8.9,3.5-12.4,0.1  c0,0-0.1-0.1-0.1-0.1c-2.4-3.1-2.4-7.5,0-10.6l20.6-112.4L847,980.1c15-70.2-29.7-139.3-99.9-154.3c-70.2-15-139.3,29.7-154.3,99.9  c0,0-297.3,1376.1-297.3,1388.6c-17,66.9,23.4,134.9,90.3,151.9c0.7,0.2,1.5,0.4,2.2,0.5h6.9c66.8,17.3,135-22.9,152.2-89.7  c0.3-1.1,0.6-2.2,0.8-3.4c-0.2-2.1-0.2-4.2,0-6.2c3.7-16.2,41.2-199.3,41.2-199.3c28.4-138.2,139.8-244.1,279.2-265.5  c28.7-4.4,149.3-12.5,149.3-12.5c520.8-51.9,900.9-516.2,848.9-1037C1819.1,378.1,1425.6,12.4,948.2,0z"></path>
+                      <path class="st1" d="M1005.7,2186.3c-85.5-17.8-169.1,37.1-186.9,122.5c-0.2,0.8-0.3,1.6-0.5,2.4c-18.5,84.9,35.3,168.8,120.3,187.3  c0.1,0,0.2,0,0.3,0.1h4.4c83.2,20.1,166.9-31.1,186.9-114.2c0.2-0.6,0.3-1.3,0.5-1.9v-8.7C1145.4,2288,1090.6,2205.7,1005.7,2186.3z  "></path>
+                    </svg>
+                    <span class="form-option-label-txt">Polkadot</span>
+                  </label>
+                </div>
+            
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline active">
+                  <input class="form-check-input" type="radio" name="color" id="c-eth" value="eth">
+                  <label class="form-option-label rounded" for="c-eth" data-bs-toggle="radioTab" data-bs-target="#eth" data-bs-parent="#hotspots-container-2">
+                    <img class="eth-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/eth-v2-logo.svg" alt="ETH diamond (purple)" loading="lazy">
+                    <span class="form-option-label-txt">Ethereum</span>
+                  </label>
+                </div>
+            
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline">
+                  <input class="form-check-input" type="radio" name="color" id="c-bnb" value="bnb">
+                  <label class="form-option-label rounded" for="c-bnb" data-bs-toggle="radioTab" data-bs-target="#bnb" data-bs-parent="#hotspots-container-2">
+                    <img class="bnb-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/bnb-logo.svg" alt="BNB Logo" loading="lazy">
+                    <span class="form-option-label-txt">Binance Smart Chain</span>
+                  </label>
+                </div>
+            
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline">
+                  <input class="form-check-input" type="radio" name="color" id="c-neo" value="neo">
+                  <label class="form-option-label rounded" for="c-neo" data-bs-toggle="radioTab" data-bs-target="#neo" data-bs-parent="#hotspots-container-2">
+                    <img class="neo-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/neo-logo.svg" alt="NEO Logo" loading="lazy">
+                    <span class="form-option-label-txt">Neo</span>
+                  </label>
+                </div>
+            
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline">
+                  <input class="form-check-input" type="radio" name="color" id="c-eos" value="eos">
+                  <label class="form-option-label rounded" for="c-eos" data-bs-toggle="radioTab" data-bs-target="#eos" data-bs-parent="#hotspots-container-2">
+                    <img class="eos-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/eos-logo.svg" alt="EOS Logo" loading="lazy">
+                    <span class="form-option-label-txt">EOS</span>
+                  </label>
+                </div>
+
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline">
+                  <input class="form-check-input" type="radio" name="color" id="c-trx" value="trx">
+                  <label class="form-option-label rounded" for="c-trx" data-bs-toggle="radioTab" data-bs-target="#trx" data-bs-parent="#hotspots-container-2">
+                    <img class="tron-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/tron-logo.svg" alt="TRON Logo" loading="lazy">
+                    <span class="form-option-label-txt">Tron</span>
+                  </label>
+                </div>
+
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline disabled">
+                  <input class="form-check-input" type="radio" name="color" id="c-ada" value="ada">
+                  <label class="form-option-label rounded" for="c-ada" data-bs-toggle="radioTab" data-bs-target="#ada" data-bs-parent="#hotspots-container-2">
+                    <img class="ada-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/ada-logo.svg" alt="ADA Logo" loading="lazy">
+                    <span class="form-option-label-txt">Cardano</span>
+                  </label>
+                </div>
+
+                <!-- Radio -->
+                <div class="form-check form-option form-check-inline disabled">
+                  <input class="form-check-input" type="radio" name="color" id="c-btc" value="btc">
+                  <label class="form-option-label rounded" for="c-btc" data-bs-toggle="radioTab" data-bs-target="#btc" data-bs-parent="#hotspots-container-2">
+                    <img class="btc-icon" sizes="(max-width: 1000px) 100vw, 1000px" src="./assets/img/btc-logo.svg" alt="Bitcoin Logo" loading="lazy">
+                    <span class="form-option-label-txt">Bitcoin Lightning Network</span>
+                  </label>
+                </div>
+
+              </div>
+            </div>
+            <!-- Combine hotspots with color switcher -->
+            <div class="hotspots" id="hotspots-container-2">
+              <!-- Image (radio) tabs -->
+              <div class="radio-tab-pane active" id="dot" role="tabpanel">
+                <img src="./assets/img/1os-desktop-dot.png" alt="1OS DOT Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="eth" role="tabpanel">
+                <img src="./assets/img/1os-desktop-eth.png" alt="1OS ETH Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="bnb" role="tabpanel">
+                <img src="./assets/img/1os-desktop-bnb.png" alt="1OS BNB Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="neo" role="tabpanel">
+                <img src="./assets/img/1os-desktop-neo.png" alt="1OS NEO Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="eos" role="tabpanel">
+                <img src="./assets/img/1os-desktop-eos.png" alt="1OS EOS Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="trx" role="tabpanel">
+                <img src="./assets/img/1os-desktop-trx.png" alt="1OS TRX Interface"/>
+              </div>
+              <div class="radio-tab-pane" id="ada" role="tabpanel">
+                <img src="./assets/img/1os-desktop-ada.png" alt="1OS ADA Interface"/>
+              </div>
+              
+              <!-- Hotspot -->
+              <span class="hotspot" style="top: 58%; right: 50%;" data-bs-container="#hotspots-container-2" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" title="D'App Dock" data-bs-content="Manage your D'Apps within any ecosystem via your D'App Dock."></span>
+              
+              <!-- Hotspot -->
+              <span class="hotspot" style="top: 22%; right: 38%;" data-bs-container="#hotspots-container-2" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" title="Customizable Desktop Theme" data-bs-content="Configure the look and feel of your 1OS desktop."></span>
+              
+              <!-- Hotspot -->
+              <span class="hotspot" style="top: 6%; right: 17%;" data-bs-container="#hotspots-container-2" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-trigger="hover" title="Toolbar Actions" data-bs-content="Access an array of available actions specific to any D'App window which is currently 'in focus'."></span>
+              
+              <!-- Hotspot -->
+              <span class="hotspot" style="top: 77%; left: 8%;" data-bs-container="#hotspots-container-2" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" title="Cross-Device Compatibility" data-bs-content="Use 1OS on any mainstream device, including Desktop / Laptop, Tablet and Mobile."></span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Customizable Interface-->
+      <section class="bg-secondary py-5 py-md-6 py-lg-7">
+        <div class="container py-3 py-lg-4">
+          <div class="row align-items-center">
+            <div class="col-md-6 mb-5 mb-md-0">
+              <div class="mx-auto mx-md-0">
+                <img class="img img-responsive rounded bg-light" src="./assets/img/dot.png" alt="Polkadot">
+              </div>
+            </div>
+            <div class="col-md-6 text-center text-md-start">
+              <h2 class="h1 mb-4">Powered by <span class='bg-faded-primary rounded text-primary px-3 py-2'>Polkadot</span></h2>
+              <p class="text-muted mb-5">1OS securely connects users around the world to Decentralized Apps and Protocols, from DeFi and NFTs to Blockchain Gaming, across supported Blockchain Networks, through a single, decentralized operating system - utilizing Polkadot's Substrate, the interoperability framework.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Features-->
+      <section class="container-fluid bg-dark py-5 py-md-6 py-lg-7">
+        <div class="text-center mb-4 pt-3 pt-lg-4">
+          <h2 class="h1 text-light">Web3 <span class="bg-faded-primary rounded text-primary px-3 py-2">Multi-Layer</span> Architecture</h2>
+        </div>
+        <div class="row pt-3 pt-lg-4">
+          <img class="img img-responsive" src="../assets/img/1os-architecture-00000.png">
+          <div class="col-md-6 d-none">
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-none">
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4 pb-2"><i class="ai-check-circle h4 text-success"></i>
+              <div class="ps-3">
+                <h3 class="h5">1OS Sub-heading</h3>
+                <p class="fs-md mb-0">1OS feature information to be added here. 1OS feature information to be added here. 1OS feature information to be added here.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Team-->
+      <section class="container-fluid bg-dark py-5 py-md-6 py-lg-7" id="team">
+        <div class="text-center mb-4 pt-3 pt-lg-4">
+          <h2 class="h1 text-light">1OS <span class="bg-faded-primary rounded text-primary px-3 py-2">Team</span></h2>
+        </div>
+        <div class="row pt-3 pt-lg-4 px-3">
+          <div class="col-sm-4 mb-4">
+            <div class="card card-hover">
+              <img class="card-img" src="./assets/img/TojiTemple.jpg" alt="Leo">
+              <div class="card-body">
+                <h5 class="card-title">Kris Ian Leo</h5>
+                <span class="badge bg-success mb-3">Founder</span>
+                <p class="card-text fs-sm">
+                  Kris Ian Leo, better known simply as "Leo", is the Founder of 1OS. 
+                </p>
+                <p class="card-text fs-sm">
+                  Leo's technical background consists of a plethora of disciplines, including programming, design and leadership. 
+                  Leo's main experience has predominantly been gained as a Software Engineer for 10+ years, with a combined high-level of expertise in UI/UX Design. 
+                </p>
+                <p class="card-text fs-sm">
+                  Leo's career includes long-term periods
+                  with financial institutions such as <b>Goldman Sachs, Deloitte & BNP Paribas</b> and having delivered Software Solutions for <b>Apple, Emirates, Bosch, Vodafone, H&M</b> and several other commercial brands.
+                  <br><br>Leo's exposure to programming languages and technologies include:<br>
+                  <ul>
+                    <li><b>Blockchain & Clientside</b><br> Solidity, JavaScript, TypeScript, ReactJS, Angular, VueJS</li>
+                    <li><b>UI/UX Design</b><br> HTML5, CSS3, SASS / SCSS, Adobe Design Suite</li>
+                    <li><b>API & Serverside</b><br> NodeJS, Java, .NET, PHP, Perl, CMS, Ecommerce, API Design, RESTful API, SOAP API</li>
+                    <li><b>Management</b><br> Directorship, Dev Lead experience, Product Ownership and Project Management experience</li>
+                  </ul>
+                </p>
+                <a class="btn btn-sm btn-primary" href="https://www.linkedin.com/in/kristopher-ian/" target="_blank">See Leo's LinkedIn</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 mb-4">
+            <div class="card card-hover">
+              <img class="card-img" src="./img/logo/1OS-logo.jpg" alt="Art">
+              <div class="card-body">
+                <h5 class="card-title">Art House</h5>
+                <span class="badge bg-success mb-3">Operations Manager</span>
+                <p class="card-text fs-sm">
+                  Art has supported the previous iteration of the 1OS project (Visor) for over a 2 year period, and has been able to help with pushing the development of new
+                  deliverables - such as platform launches, Whitepaper publishing as well as promptly supporting the 1OS Community with any general queries they may have or general help they may need.
+                  <br><br>Art's contributions and skillset include:<br>
+                  <ul>
+                    <li><b>Community Management</b><br> Overseeing the Community Management function of the 1OS Project</li>
+                    <li><b>Product Delivery</b><br> Ensuring the product features are completed and delivered within expected timeframes</li>
+                    <li><b>Project Support</b><br> Adhoc contributions towards various 1OS aspects and tasks</li>
+                  </ul>
+                </p>
+                <a class="btn btn-sm btn-primary" href="https://t.me/Official_1OS" target="_blank">Contact Art on Telegram</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 mb-4">
+            <div class="card card-hover">
+              <img class="card-img" src="./img/logo/1OS-logo.jpg" alt="Dan">
+              <div class="card-body">
+                <h5 class="card-title">Dan Omo</h5>
+                <span class="badge bg-success mb-3">Community Manager</span>
+                <p class="card-text fs-sm">
+                  Dan is an experienced Community Manager with over 2 years of experience. Having served within the Community Management space with successful projects such as <a href="https://swipe.io" target="_blank">Swipe</a> (See <a href="https://t.me/SwipeWallet" target="_blank">Swipe's Telegram</a> Group)
+                  and currently lends his services to new and upcoming project <a href="https://www.litentry.com" target="_blank">LitEntry</a>, with a community of over 10,000+ members.
+                  <br><br>Dan's strengths and expertise include:<br>
+                  <ul>
+                    <li><b>Member Support</b><br> Guiding and supporting community members with general queries and frequently asked questions</li>
+                    <li><b>Anti-Spam / Anti-Scam</b><br> Protects the community from potential malicious content or users</li>
+                    <li><b>Airdrops and Promotions</b><br> Assists with the delivery of new Airdrops and Community Promotions</li>
+                  </ul>
+                </p>
+                <a class="btn btn-sm btn-primary" href="https://t.me/Official_1OS" target="_blank">Contact Dan on Telegram</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer bg-dark pt-5 pt-md-6 pt-lg-7">
+      <div class="container pt-3 pt-md-0">
+        <div class="pb-md-4 text-center">
+          <img class="os-laptop" src="./assets/img/1os-laptop-000001.png">
+          <h3 class="text-light fw-light mb-3">Explore Web 3.0</h3>
+          <h2 class="text-light mb-5">Countdown until 1OS BETA launch</h2>
+          <div class="countdown h3 justify-content-end" data-countdown="06/30/2021 02:00:00 PM">
+            <div class="countdown-days">
+              <span class="countdown-value">0</span>
+              <span class="countdown-label text-body">Days</span>
+            </div>
+            <div class="countdown-hours">
+              <span class="countdown-value">0</span>
+              <span class="countdown-label text-body">Hours</span>
+            </div>
+            <div class="countdown-minutes">
+              <span class="countdown-value">0</span>
+              <span class="countdown-label text-body">Mins</span>
+            </div>
+            <div class="countdown-seconds">
+              <span class="countdown-value">0</span>
+              <span class="countdown-label text-body">Secs</span>
+            </div>
+          </div>
+          <!-- <h2 class="text-light mb-5">Try 1OS BETA</h2><a class="btn btn-primary" href="https://beta.1os.io/" target="_blank" rel="noopener">Launch 1OS BETA</a> -->
+        </div>
+        <hr class="hr-light my-5">
+        <p class="fs-sm text-center mb-0 pb-5"><span class="text-light opacity-50 me-1">© All rights reserved. </span><a class="nav-link-style nav-link-light" href="https://1os.io" target="_blank" rel="noopener">1OS</a> 2021</p>
+      </div>
+    </footer>
+    <div class="xvr-consent-banner">
+        <svg id="Capa_1" enable-background="new 0 0 512 512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><g><path d="m438.178 76.192c-47.536-48.158-110.952-75.201-178.567-76.147-7.212-.1-13.522 4.986-14.926 12.091-5.416 27.411-28.68 47.918-56.573 49.869-4.48.314-8.585 2.618-11.184 6.281-2.6 3.663-3.422 8.297-2.239 12.63 5.586 20.476 1.736 43.305-10.561 62.633-12.724 20-32.446 33.267-54.109 36.397-8.034 1.161-13.688 8.503-12.755 16.568.278 2.408.419 4.826.419 7.188 0 34.285-27.892 62.177-62.178 62.177-5.317 0-10.605-.674-15.714-2.004-4.73-1.233-9.763-.081-13.487 3.083-3.726 3.164-5.676 7.943-5.227 12.81 5.829 63.268 34.927 121.852 81.932 164.958 47.303 43.382 108.727 67.274 172.958 67.274 68.38 0 132.667-26.628 181.02-74.981 48.352-48.352 74.98-112.639 74.98-181.019 0-67.744-26.205-131.601-73.789-179.808zm-22.404 339.614c-42.687 42.686-99.44 66.194-159.807 66.194-56.702 0-110.927-21.09-152.684-59.384-36.79-33.739-61.153-78.204-69.795-126.759.671.015 1.344.022 2.016.022 49.797 0 90.498-39.694 92.127-89.102 24.934-7.147 46.979-23.816 61.809-47.125 13.689-21.518 19.664-46.432 17.21-70.384 29.678-7.629 53.879-29.733 64.052-58.777 55.345 3.547 106.87 27.006 146.125 66.776 42.007 42.557 65.141 98.93 65.141 158.733-.001 60.367-23.509 117.121-66.194 159.806z"/><path d="m176.638 270.685c-28.681 0-52.015 23.334-52.015 52.015s23.334 52.015 52.015 52.015c28.682 0 52.016-23.334 52.016-52.015-.001-28.681-23.335-52.015-52.016-52.015zm0 74.03c-12.139 0-22.015-9.876-22.015-22.015s9.876-22.015 22.015-22.015c12.14 0 22.016 9.876 22.016 22.015-.001 12.139-9.877 22.015-22.016 22.015z"/><path d="m301.777 182.914c30.281 0 54.917-24.636 54.917-54.917s-24.636-54.917-54.917-54.917-54.917 24.636-54.917 54.917 24.635 54.917 54.917 54.917zm0-79.834c13.739 0 24.917 11.178 24.917 24.917 0 13.74-11.178 24.917-24.917 24.917s-24.917-11.178-24.917-24.917c0-13.74 11.177-24.917 24.917-24.917z"/><path d="m328.011 312.074c-27.751 0-50.328 22.577-50.328 50.328s22.577 50.328 50.328 50.328 50.328-22.577 50.328-50.328-22.577-50.328-50.328-50.328zm0 70.656c-11.209 0-20.328-9.119-20.328-20.328s9.119-20.328 20.328-20.328 20.328 9.119 20.328 20.328-9.119 20.328-20.328 20.328z"/><path d="m448.725 234.768c0-27.751-22.577-50.328-50.328-50.328s-50.327 22.577-50.327 50.328 22.576 50.328 50.327 50.328 50.328-22.577 50.328-50.328zm-50.328 20.328c-11.208 0-20.327-9.119-20.327-20.328s9.119-20.328 20.327-20.328c11.209 0 20.328 9.119 20.328 20.328s-9.119 20.328-20.328 20.328z"/><path d="m383.687 140.08c1.276 6.15 6.276 10.964 12.506 11.905 6.19.934 12.491-2.252 15.423-7.775 2.934-5.525 2.115-12.488-2.108-17.132-4.216-4.636-11.06-6.188-16.852-3.779-6.585 2.74-10.272 9.814-8.969 16.781z"/><path d="m444.517 324.14c-1.176-6.147-6.34-10.972-12.496-11.898-6.185-.931-12.499 2.243-15.433 7.769-2.934 5.524-2.105 12.499 2.113 17.14 4.223 4.646 11.053 6.158 16.847 3.77 6.502-2.681 10.405-9.862 8.969-16.781z"/><path d="m191.267 217.7c1.15 6.143 6.358 10.982 12.496 11.905 6.202.933 12.477-2.258 15.433-7.775 2.962-5.528 2.077-12.479-2.11-17.132-4.201-4.668-11.069-6.16-16.85-3.779-6.502 2.68-10.405 9.864-8.969 16.781z"/><path d="m250.677 423.84c-1.29-6.153-6.263-10.962-12.505-11.909-6.185-.938-12.487 2.257-15.425 7.769-2.944 5.523-2.105 12.498 2.109 17.14 4.209 4.636 11.066 6.181 16.85 3.78 6.49-2.693 10.407-9.862 8.971-16.78z"/><path d="m316.127 222.41c-1.955-5.978-7.261-10.301-13.613-10.626-6.261-.32-12.191 3.471-14.587 9.246-2.396 5.774-.878 12.66 3.779 16.853 4.671 4.206 11.583 5.054 17.132 2.107 6.271-3.331 9.302-10.803 7.289-17.58z"/><path d="m279.137 295.89c5.225-3.44 7.747-10.067 6.222-16.118-1.528-6.067-6.839-10.667-13.073-11.271-6.231-.603-12.361 2.833-15.028 8.513-2.662 5.668-1.49 12.581 2.949 17.017 4.983 4.978 13.077 5.806 18.93 1.859z"/><path d="m90.326 324.14c-1.176-6.147-6.34-10.972-12.496-11.898-6.189-.932-12.498 2.242-15.434 7.769-2.935 5.526-2.11 12.496 2.11 17.14 4.22 4.643 11.059 6.163 16.85 3.77 6.492-2.683 10.42-9.862 8.97-16.781z"/><path d="m90.607 104.03c28.682 0 52.016-23.334 52.016-52.015-.001-28.681-23.335-52.015-52.016-52.015s-52.015 23.334-52.015 52.015 23.334 52.015 52.015 52.015zm0-74.03c12.14 0 22.016 9.876 22.016 22.015s-9.876 22.015-22.016 22.015c-12.139 0-22.015-9.876-22.015-22.015s9.876-22.015 22.015-22.015z"/><path d="m1.736 169.21c2.898 5.531 9.277 8.706 15.435 7.772 6.197-.939 11.269-5.751 12.505-11.902 1.233-6.137-1.635-12.584-7.004-15.795-5.383-3.22-12.358-2.699-17.216 1.265-5.546 4.527-6.934 12.366-3.72 18.66z"/></g></svg>
+        <p class="fs-body2 fw-bold m-3">
+            1OS Privacy
+        </p>
+        <p class="consent-content mb16 s-anchors s-anchors__inherit s-anchors__underlined">
+            By using the 1OS platform (1OS.io), you understand that 1OS may store cookies on your device in order to improve your overall experience in accordance with our <a href="https://1os.io/cookie-policy">Cookie Policy</a>.
+        </p>
+        <div class="grid gs8 ai-stretch fd-column sm:fd-row">
+            <button class="grid--cell s-btn s-btn__primary js-accept-cookies xvr-consent-banner-hide">
+                Yes, I understand
+            </button>
+        </div>
+    </div>
+    <!-- Back to top button--><a class="btn-scroll-top" href="#top" data-scroll data-fixed-element><span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ai-arrow-up">   </i></a>
+    <!-- Vendor scrits: js libraries and plugins-->
+    <script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/simplebar/dist/simplebar.min.js"></script>
+    <script src="vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+    <script src="vendor/parallax-js/dist/parallax.min.js"></script>
+    <!-- Main theme script-->
+    <script src="js/theme.min.js"></script>
+  </body>
+</html>

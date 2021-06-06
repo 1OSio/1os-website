@@ -1,0 +1,17 @@
+{
+  "name": "1os.io",
+  "version": "1.0.0",
+  "description": "1os.io website",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "1os"
+  ],
+  "author": "Leo",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.12.3"
+  }
+}
